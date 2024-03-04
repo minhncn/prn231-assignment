@@ -8,8 +8,6 @@ namespace PetShop.Services.Requests.ProductRequest
 {
     public class CreateProductRequest
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; } = null!;
 
         public decimal Price { get; set; }

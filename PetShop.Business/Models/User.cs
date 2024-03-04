@@ -13,7 +13,7 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
-    public bool? Status { get; set; }
+    public string? Status { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

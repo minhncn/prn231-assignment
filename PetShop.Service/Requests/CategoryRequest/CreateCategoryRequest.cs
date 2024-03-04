@@ -8,7 +8,9 @@ namespace PetShop.Services.Requests.CategoryRequest
 {
     public class CreateCategoryRequest
     {
-        public string? Name { get; set; }
+        public Guid Id { get; set; }
+
+        public string Name { get; set; } = null!;
 
         public string? Description { get; set; }
     }
