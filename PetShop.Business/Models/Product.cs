@@ -13,7 +13,7 @@ public partial class Product
 
     public Guid? CategoryId { get; set; }
 
-    public bool? Status { get; set; }
+    public string? Status { get; set; }
 
     public virtual Category? Category { get; set; }
 

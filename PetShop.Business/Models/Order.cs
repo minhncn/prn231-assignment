@@ -15,7 +15,7 @@ public partial class Order
 
     public DateTime? OrderDate { get; set; }
 
-    public bool? Status { get; set; }
+    public string? Status { get; set; }
 
     public virtual Product? Product { get; set; }
 

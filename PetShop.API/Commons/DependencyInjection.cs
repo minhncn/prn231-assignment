@@ -2,7 +2,8 @@
 using PetShop.Business.Models;
 using PetShop.Repositories.Implements;
 using PetShop.Repositories.Interfaces;
-using PetShop.Services;
+using PetShop.Services.Implements;
+using PetShop.Services.Intefaces;
 
 namespace PetShop.API.Commons
 {
@@ -16,6 +17,8 @@ namespace PetShop.API.Commons
             });
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using PetShop.Business.Models;
 using PetShop.Repositories.Implements;
 using PetShop.Repositories.Interfaces;
+using PetShop.Services.Intefaces;
 using PetShop.Services.Requests;
 using PetShop.Services.Requests.CategoryRequest;
 using System;
@@ -10,15 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShop.Services
+namespace PetShop.Services.Implements
 {
-    public interface ICategoryService
-    {
-        public Task<List<Category>> GetAll();
-        public Task<Category> Create(CreateCategoryRequest request);
-        public Task<Category> Update(UpdateCategoryRequest request);
-        public Task<Category> Delete(Guid id);
-    }
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
@@ -39,8 +34,8 @@ namespace PetShop.Services
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
-                //Default is tru
-                Status = true
+                //Default is true
+                Status = Enums.CategoryStatus.Available.ToString().TrimEnd()
             };
             return await _categoryRepository.CreateAsync(category);
         }
@@ -55,7 +50,17 @@ namespace PetShop.Services
             }
             category.Name = request.Name;
             category.Description = request.Description;
-            category.Status = false;
+            if (category.Status == Enums.ProductStatus.Unavailable.ToString().TrimEnd())
+            {
+                category.Status = Enums.ProductStatus.Available.ToString().TrimEnd();
+            }
+            else if (category.Status == Enums.ProductStatus.Available.ToString().TrimEnd())
+            {
+                category.Status = Enums.ProductStatus.Unavailable.ToString().TrimEnd();
+            } else
+            {
+                throw new Exception("Category status is not valid");
+            }
             _categoryRepository.Update(category);
             return category;
         }
@@ -68,7 +73,7 @@ namespace PetShop.Services
             {
                 throw new Exception("Category not found");
             }
-            _categoryRepository.Update(category);
+            category.Status = Enums.CategoryStatus.Unavailable.ToString().TrimEnd();
 
             return category;
         }

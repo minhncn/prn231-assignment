@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetShop.Services;
+using PetShop.Services.Intefaces;
 using PetShop.Services.Requests;
 using PetShop.Services.Requests.CategoryRequest;
 

@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetShop.Services.Requests
+namespace PetShop.Services.Requests.ProductRequest
 {
-    public class UpdateCategoryRequest
+    public class GetProductRequest
     {
         public Guid Id { get; set; }
 
         public string Name { get; set; } = null!;
 
-        public string? Description { get; set; }
+        public decimal Price { get; set; }
 
-        public string? Status { get; set; }
+        public Guid? CategoryId { get; set; }
+
+        public bool? Status { get; set; }
     }
 }
