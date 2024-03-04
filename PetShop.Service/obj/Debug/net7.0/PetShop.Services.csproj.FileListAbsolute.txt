@@ -1,0 +1,17 @@
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\bin\Debug\net7.0\PetShop.Services.deps.json
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\bin\Debug\net7.0\PetShop.Services.dll
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\bin\Debug\net7.0\PetShop.Services.pdb
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\bin\Debug\net7.0\PetShop.Business.dll
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\bin\Debug\net7.0\PetShop.Repositories.dll
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\bin\Debug\net7.0\PetShop.Repositories.pdb
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\bin\Debug\net7.0\PetShop.Business.pdb
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.csproj.AssemblyReference.cache
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.AssemblyInfoInputs.cache
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.AssemblyInfo.cs
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.csproj.CoreCompileInputs.cache
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.csproj.CopyComplete
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.dll
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\refint\PetShop.Services.dll
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\PetShop.Services.pdb
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.Service\obj\Debug\net7.0\ref\PetShop.Services.dll
