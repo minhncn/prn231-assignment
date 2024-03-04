@@ -94,3 +94,4 @@ D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.API\obj\Debug\net7.0\refint\Pe
 D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.API\obj\Debug\net7.0\PetShop.API.pdb
 D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.API\obj\Debug\net7.0\PetShop.API.genruntimeconfig.cache
 D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.API\obj\Debug\net7.0\ref\PetShop.API.dll
+D:\FPT\SEM8\PRN231\Assignment\PetShop.API\PetShop.API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
