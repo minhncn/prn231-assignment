@@ -1,5 +1,6 @@
 ﻿using PetShop.Business.Models;
 using PetShop.Repositories.Implements;
+using PetShop.Repositories.Interfaces;
 using PetShop.Services.Requests;
 using PetShop.Services.Requests.ProductRequest;
 using System;
@@ -27,7 +28,15 @@ namespace PetShop.Services
 
         public Task<Product> Create(CreateProductRequest request)
         {
-            throw new NotImplementedException();
+            var product = new Product
+            {
+                Id = Guid.NewGuid(),
+                Name = request.Name,
+                Price = request.Price,
+                CategoryId = request.CategoryId,
+                Status = true
+            };
+            return _productRepository.CreateAsync(product);
         }
 
         public Task<Product> Delete(Guid id)

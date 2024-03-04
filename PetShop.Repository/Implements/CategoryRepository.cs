@@ -1,4 +1,5 @@
 ﻿using PetShop.Business.Models;
+using PetShop.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace PetShop.Repositories.Implements
 {
-    public interface ICategoryRepository : IRepositoryBase<Category> { }
     public class CategoryRepository : ICategoryRepository
     {
         private readonly PetShopContext _context;

@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using PetShop.Repositories.Interfaces;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PetShop.Repositories.Implements
 {
-    public interface IProductRepository : IRepositoryBase<Product> { }
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly PetShopContext _context;
         public ProductRepository(PetShopContext context)

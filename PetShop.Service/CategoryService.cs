@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetShop.Business.Models;
 using PetShop.Repositories.Implements;
+using PetShop.Repositories.Interfaces;
 using PetShop.Services.Requests;
 using PetShop.Services.Requests.CategoryRequest;
 using System;
@@ -25,10 +26,12 @@ namespace PetShop.Services
         {
             _categoryRepository = categoryRepository;
         }
+
         public async Task<List<Category>> GetAll()
         {
             return await _categoryRepository.Get().ToListAsync();
         }
+
         public async Task<Category> Create(CreateCategoryRequest request)
         {
             var category = new Category
@@ -36,10 +39,12 @@ namespace PetShop.Services
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
-                Status = request.Equals("Active") ? true : false
+                //Default is tru
+                Status = true
             };
             return await _categoryRepository.CreateAsync(category);
         }
+
         public async Task<Category> Update(UpdateCategoryRequest request)
         {
             var category = _categoryRepository.Get(request.Id);
@@ -50,9 +55,11 @@ namespace PetShop.Services
             }
             category.Name = request.Name;
             category.Description = request.Description;
+            category.Status = false;
             _categoryRepository.Update(category);
             return category;
         }
+
         public async Task<Category> Delete(Guid id)
         {
             var category = _categoryRepository.Get(id);
@@ -61,7 +68,7 @@ namespace PetShop.Services
             {
                 throw new Exception("Category not found");
             }
-            _categoryRepository.Delete(category);
+            _categoryRepository.Update(category);
 
             return category;
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetShop.Business.Models;
 using PetShop.Repositories.Implements;
+using PetShop.Repositories.Interfaces;
 using PetShop.Services;
 
 namespace PetShop.API.Commons

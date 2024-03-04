@@ -10,10 +10,12 @@ namespace PetShop.Services.Requests.ProductRequest
     {
         public Guid Id { get; set; }
 
-        public string? Name { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
         public decimal Price { get; set; }
 
         public Guid? CategoryId { get; set; }
+
+        public bool? Status { get; set; }
     }
 }
