@@ -17,13 +17,20 @@ namespace PetShop.API.Controllers
         }
 
         [HttpGet("categories")]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Get()
-        {
-            var result = await _categoryService.GetAll();
-            if (result != null)
-                return Ok(result);
-            return BadRequest();
+        {           
+            try
+            {
+                var result = await _categoryService.GetAll();
+                if (result != null)
+                    return Ok(result);
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("categories")]
         [Authorize]

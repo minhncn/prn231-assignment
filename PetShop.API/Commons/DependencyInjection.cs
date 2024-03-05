@@ -19,8 +19,7 @@ namespace PetShop.API.Commons
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddHttpClient<IJwtService, JwtService>();
-            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

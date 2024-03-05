@@ -1,28 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PetShop.Business.Models;
 using PetShop.Repositories.Interfaces;
+using PetShop.Services.Requests.AuthRequest;
 
 namespace PetShop.API.Controllers
 {
     public class LoginController : ApiControllerBase
     {
-        private readonly IAuthRepository _authRepository;
-        public LoginController(IAuthRepository authRepository)
+        private readonly IAuthService _authService;
+        public LoginController(IAuthService authService)
         {
-            _authRepository = authRepository;
+            _authService = authService; 
         }
         [HttpPost("login")]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login([FromBody]LoginRequest request)
         {
-            if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if(string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password))
             {
                 return BadRequest("Username or password is empty");
             }
-            var token = _authRepository.Login(username, password);
+            var token = _authService.Login(request);
             if(token == null)
             {
                 return Unauthorized("Username or password is incorrect");
             }
-            return Ok(new {token});
+            return Ok(token);
         }
     }
 }

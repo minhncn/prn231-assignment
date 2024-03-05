@@ -23,8 +23,9 @@ builder.Services.AddSwaggerGen(options =>
         In = ParameterLocation.Header,
         Description = "Please enter token",
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "auth"
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
@@ -51,7 +52,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = configuration["JwtSettings:Issuer"],
-            ValidAudience = configuration["JwtSettings:Audience"],
+            //ValidAudience = configuration["JwtSettings:Audience"],
+            ValidAudience = configuration["JwtSettings:Issuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]))
         };
     });
