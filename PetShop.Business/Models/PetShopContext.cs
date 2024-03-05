@@ -25,21 +25,21 @@ public partial class PetShopContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(GetConnectionStrings());
-
-    public string GetConnectionStrings()
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer(GetConnectionString());
+    protected string GetConnectionString()
     {
         IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
             .Build();
         return configuration.GetConnectionString("PetShopDB");
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC2745255C88");
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC27BB1F829E");
 
             entity.ToTable("Category");
 
@@ -56,7 +56,7 @@ public partial class PetShopContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC27C31CE9BA");
+            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC2748DBAE84");
 
             entity.ToTable("Order");
 
@@ -84,7 +84,7 @@ public partial class PetShopContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC2741E29A75");
+            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC27C46F915F");
 
             entity.ToTable("Product");
 
@@ -106,7 +106,7 @@ public partial class PetShopContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC27E9FD2408");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC279640C7F2");
 
             entity.ToTable("User");
 
@@ -114,7 +114,12 @@ public partial class PetShopContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.OrderId).HasColumnName("Order_ID");
             entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.Role)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .IsFixedLength();
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .IsUnicode(false)

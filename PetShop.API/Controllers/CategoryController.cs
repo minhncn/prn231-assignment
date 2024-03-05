@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetShop.Services;
 using PetShop.Services.Intefaces;
 using PetShop.Services.Requests;
@@ -16,14 +17,23 @@ namespace PetShop.API.Controllers
         }
 
         [HttpGet("categories")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Get()
-        {
-            var result = await _categoryService.GetAll();
-            if (result != null)
-                return Ok(result);
-            return BadRequest();
+        {           
+            try
+            {
+                var result = await _categoryService.GetAll();
+                if (result != null)
+                    return Ok(result);
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("categories")]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateCategoryRequest request)
         {
             var result = await _categoryService.Create(request);
@@ -32,6 +42,7 @@ namespace PetShop.API.Controllers
             return BadRequest();
         }
         [HttpPut("categories")]
+        [Authorize]
         public async Task<IActionResult> Update([FromBody] UpdateCategoryRequest request)
         {
             var result = await _categoryService.Update(request);
@@ -40,6 +51,7 @@ namespace PetShop.API.Controllers
             return BadRequest();
         }
         [HttpDelete("categories/{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _categoryService.Delete(id);

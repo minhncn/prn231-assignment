@@ -15,5 +15,9 @@ public partial class User
 
     public string? Status { get; set; }
 
+    public string Role { get; set; } = null!;
+
+    public Guid? OrderId { get; set; }
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
