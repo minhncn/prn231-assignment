@@ -39,7 +39,7 @@ public partial class PetShopContext : DbContext
     {
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC27BB1F829E");
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC27D2A3E0FF");
 
             entity.ToTable("Category");
 
@@ -56,7 +56,7 @@ public partial class PetShopContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC2748DBAE84");
+            entity.HasKey(e => e.Id).HasName("PK__Order__3214EC27B1351752");
 
             entity.ToTable("Order");
 
@@ -84,7 +84,7 @@ public partial class PetShopContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC27C46F915F");
+            entity.HasKey(e => e.Id).HasName("PK__Product__3214EC276846C85C");
 
             entity.ToTable("Product");
 
@@ -92,7 +92,6 @@ public partial class PetShopContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.CategoryId).HasColumnName("Category_ID");
-            entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
@@ -106,25 +105,22 @@ public partial class PetShopContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC279640C7F2");
+            entity.HasKey(e => e.Id).HasName("PK__User__3214EC271A7AC028");
 
             entity.ToTable("User");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("ID");
-            entity.Property(e => e.Email).HasMaxLength(255);
-            entity.Property(e => e.OrderId).HasColumnName("Order_ID");
-            entity.Property(e => e.Password).HasMaxLength(255);
+            entity.Property(e => e.Email).IsUnicode(false);
+            entity.Property(e => e.Password).IsUnicode(false);
             entity.Property(e => e.Role)
                 .HasMaxLength(20)
-                .IsUnicode(false)
-                .IsFixedLength();
+                .IsUnicode(false);
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
-                .IsUnicode(false)
-                .IsFixedLength();
-            entity.Property(e => e.Username).HasMaxLength(255);
+                .IsUnicode(false);
+            entity.Property(e => e.Username).IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);
