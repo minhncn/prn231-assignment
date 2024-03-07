@@ -16,6 +16,6 @@ namespace PetShop.Services.Requests.ProductRequest
 
         public Guid? CategoryId { get; set; }
 
-        public bool? Status { get; set; }
+        public String? Status { get; set; }
     }
 }
