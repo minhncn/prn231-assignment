@@ -15,11 +15,17 @@ namespace PetShop.API.Commons
             {
                 options.UseSqlServer("PetShopDB");
             });
+
+            //Inject Repository
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IUserRepository,  UserRepository>();
+
+            //Inject Service
+            services.AddScoped<ICategoryService, CategoryService>();           
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

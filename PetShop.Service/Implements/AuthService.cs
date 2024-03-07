@@ -1,12 +1,18 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Azure.Core;
+using Azure.Messaging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PetShop.Business.Models;
 using PetShop.Repositories.Interfaces;
+using PetShop.Services.Implements;
 using PetShop.Services.Requests.AuthRequest;
+using PetShop.Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,32 +21,38 @@ namespace PetShop.Repositories.Implements
 {
     public class AuthService : IAuthService
     {
-        public readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
+        private readonly IUserRepository _userRepository;
 
-        public AuthService(IConfiguration configuration)
+        public AuthService(IConfiguration configuration, IUserRepository userRepository)
         {
             _configuration = configuration;
+            _userRepository = userRepository;
         }
 
-        public Task<string> Login(LoginRequest request)
+        public async Task<LoginResponse?> Login(LoginRequest loginRequest)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            Expression<Func<User, bool>> searchFilter = p =>
+                p.Username.Equals(loginRequest.Username) &&
+                p.Password.Equals(loginRequest.Password);
 
-            var claims = new List<Claim>
+            var user = _userRepository.Get(searchFilter).FirstOrDefault();
+
+            if (user == null) return null;
+
+            var token = JwtUtil.GenerateJwtToken(user);
+
+            var loginResponse = new LoginResponse()
             {
-                new Claim(ClaimTypes.Name, request.Username), // Thêm claim về tên người dùng
-                new Claim(ClaimType.Role, request.Role)
+                AccessToken = token,
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Status = user.Status,
+                Role = user.Role,
             };
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JwtSettings:Issuer"],   // Người phát hành
-                audience: _configuration["JwtSettings:Issuer"], // Người sử dụng              
-                claims: claims,                                  
-                expires: DateTime.Now.AddMinutes(120),
-                signingCredentials: credentials);
-
-            return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
+            return loginResponse;
         }
     }
 }

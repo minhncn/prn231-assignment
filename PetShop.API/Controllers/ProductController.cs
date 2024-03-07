@@ -15,7 +15,6 @@ namespace PetShop.API.Controllers
         }
 
         [HttpGet("products")]
-        [Authorize]
         public async Task<IActionResult> Get()
         {
             var result = await _productService.GetAll();
@@ -24,7 +23,6 @@ namespace PetShop.API.Controllers
             return BadRequest();
         }
         [HttpPost("products")]
-        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateProductRequest request)
         {
             var result = await _productService.Create(request);
@@ -33,7 +31,6 @@ namespace PetShop.API.Controllers
             return BadRequest();
         }
         [HttpPut("products")]
-        [Authorize]
         public async Task<IActionResult> Update([FromBody] UpdateProductRequest request)
         {
             var result = await _productService.Update(request);
@@ -42,7 +39,6 @@ namespace PetShop.API.Controllers
             return BadRequest();
         }
         [HttpDelete("products/{id}")]
-        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _productService.Delete(id);

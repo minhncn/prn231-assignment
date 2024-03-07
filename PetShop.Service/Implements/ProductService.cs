@@ -10,7 +10,7 @@ namespace PetShop.Services.Implements
 {
     public class ProductService : IProductService
     {
-        public readonly IProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
         public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
