@@ -20,11 +20,11 @@ namespace PetShop.Services.Utils
             string issuer = JsonUtil.GetFromAppSettings("JwtSettings:Issuer");
             string audience = JsonUtil.GetFromAppSettings("JwtSettings:Audience");
             List<Claim> claims = new List<Claim>()
-        {
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Sub,user.Username),
-            new Claim(ClaimTypes.Role,user.Role),
-        };
+                {
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Sub,user.Username),
+                    new Claim(ClaimTypes.Role,user.Role),
+                };
             var expires = DateTime.Now.AddDays(1);
             var token = new JwtSecurityToken(issuer, null, claims, notBefore: DateTime.Now, expires, credentials);
             return jwtHandler.WriteToken(token);

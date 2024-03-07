@@ -26,12 +26,14 @@ namespace PetShop.Services.Implements
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> GetAll(PagingRequest pageModel)
+        public async Task<List<User>> GetAll(UserFilterRequest filter, PagingRequest pageModel)
         {
-            return await _userRepository
+            var users = await _userRepository
                 .Get()
                 .Paging(pageModel.Page, pageModel.PageSize)
                 .ToListAsync();
+            var filterList = users.AutoFilter(filter);
+            return filterList;
         }
 
         public async Task<User> Create(CreateUserRequest request)

@@ -11,7 +11,7 @@ namespace PetShop.Services.Intefaces
 {
     public interface IProductService
     {
-        public Task<List<Product>> GetAll(PagingRequest pageModel);
+        public Task<List<Product>> GetAll(ProductFilterRequest filter, PagingRequest pageModel);
         public Task<Product> Create(CreateProductRequest request);
         public Task<Product> Update(UpdateProductRequest request);
         public Task<Product> Delete(Guid id);

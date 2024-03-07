@@ -42,12 +42,14 @@ namespace PetShop.Services.Implements
             return product;
         }
 
-        public async Task<List<Product>> GetAll(PagingRequest pageModel)
+        public async Task<List<Product>> GetAll(ProductFilterRequest filter, PagingRequest pageModel)
         {
-            return await _productRepository
+            var products = await _productRepository
                 .Get()
                 .Paging(pageModel.Page, pageModel.PageSize)
                 .ToListAsync();
+            var filterList = products.AutoFilter(filter);
+            return filterList;
         }
 
         public async Task<Product> Update(UpdateProductRequest request)
