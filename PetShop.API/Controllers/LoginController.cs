@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using PetShop.Business.Models;
 using PetShop.Repositories.Interfaces;
+using PetShop.Services.Implements;
 using PetShop.Services.Requests.AuthRequest;
 
 namespace PetShop.API.Controllers
@@ -13,18 +15,18 @@ namespace PetShop.API.Controllers
             _authService = authService; 
         }
         [HttpPost("login")]
-        public IActionResult Login([FromBody]LoginRequest request)
+        public Task<LoginResponse?> Login([FromBody]LoginRequest request)
         {
             if(string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Password))
             {
-                return BadRequest("Username or password is empty");
+                throw new Exception("Username or password is empty");
             }
             var token = _authService.Login(request);
             if(token == null)
             {
-                return Unauthorized("Username or password is incorrect");
+                throw new Exception("Username or password is incorrect");
             }
-            return Ok(token);
+            return token;
         }
     }
 }

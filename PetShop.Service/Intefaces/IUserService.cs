@@ -13,7 +13,7 @@ namespace PetShop.Services.Intefaces
     {
         public Task<List<User>> GetAll();
         public Task<User> Create(CreateUserRequest request);
-        public Task<User> Update(CreateUserRequest request);
+        public Task<User> Update(UpdateUserRequest request);
         public Task<User> Delete(Guid id);
     }
 }
