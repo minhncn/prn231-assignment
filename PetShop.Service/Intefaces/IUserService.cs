@@ -12,7 +12,7 @@ namespace PetShop.Services.Intefaces
 {
     public interface IUserService
     {
-        public Task<List<User>> GetAll(PagingRequest pageModel);
+        public Task<List<User>> GetAll(UserFilterRequest filter, PagingRequest pageModel);
         public Task<User> Create(CreateUserRequest request);
         public Task<User> Update(UpdateUserRequest request);
         public Task<User> Delete(Guid id);

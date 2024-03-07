@@ -23,12 +23,14 @@ namespace PetShop.Services.Implements
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<List<Category>> GetAll(PagingRequest pageModel)
+        public async Task<List<Category>> GetAll(CategoryFilterRequest filter, PagingRequest pageModel)
         {
-            return await _categoryRepository
+            var categories = await _categoryRepository
                 .Get()
                 .Paging(pageModel.Page, pageModel.PageSize)
                 .ToListAsync();
+            var filterList = categories.AutoFilter(filter);
+            return filterList;
         }
 
         public async Task<Category> Create(CreateCategoryRequest request)

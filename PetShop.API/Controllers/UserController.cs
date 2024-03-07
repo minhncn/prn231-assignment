@@ -20,9 +20,9 @@ namespace PetShop.API.Controllers
         }
         [HttpGet("users")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Get([FromQuery] PagingRequest pagingModel)
+        public async Task<IActionResult> Get([FromQuery]UserFilterRequest filter, [FromQuery] PagingRequest pagingModel)
         {
-            var result = await _userService.GetAll(pagingModel);
+            var result = await _userService.GetAll(filter, pagingModel);
             if (result != null)
             {
                 var paginationResponse = new PaginationResponse<IEnumerable<User>>(result)
