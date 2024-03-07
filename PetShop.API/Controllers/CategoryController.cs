@@ -17,6 +17,7 @@ namespace PetShop.API.Controllers
         }
 
         [HttpGet("categories")]
+        [Authorize(Roles = "Admin, Staff")]
         public async Task<IActionResult> Get()
         {           
             try
@@ -32,6 +33,7 @@ namespace PetShop.API.Controllers
             }
         }
         [HttpPost("categories")]
+        [Authorize(Roles = "Admin, Staff")]
         public async Task<IActionResult> Create([FromBody] CreateCategoryRequest request)
         {
             var result = await _categoryService.Create(request);
@@ -40,6 +42,7 @@ namespace PetShop.API.Controllers
             return BadRequest();
         }
         [HttpPut("categories")]
+        [Authorize(Roles = "Admin, Staff")]
         public async Task<IActionResult> Update([FromBody] UpdateCategoryRequest request)
         {
             var result = await _categoryService.Update(request);
@@ -48,6 +51,7 @@ namespace PetShop.API.Controllers
             return BadRequest();
         }
         [HttpDelete("categories/{id}")]
+        [Authorize(Roles = "Admin, Staff")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _categoryService.Delete(id);
