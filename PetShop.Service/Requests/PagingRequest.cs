@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace PetShop.Services.Requests
 {
-    public class GetCategoryRequest
+    public class PagingRequest
     {
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public string? Status { get; set; }
+        public int Page { get; set; } = 1;
+        public int PageSize { get; set; } = 999;
     }
 }

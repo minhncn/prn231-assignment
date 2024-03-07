@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PetShop.Business.Models;
+using PetShop.Services.Implements;
 using PetShop.Services.Intefaces;
+using PetShop.Services.Requests;
 using PetShop.Services.Requests.ProductRequest;
+using PetShop.Services.Responses;
 
 namespace PetShop.API.Controllers
 {
@@ -16,12 +20,22 @@ namespace PetShop.API.Controllers
 
         [HttpGet("products")]
         [Authorize(Roles = "Admin, Staff, User")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] PagingRequest pagingModel)
         {
-            var result = await _productService.GetAll();
+            var result = await _productService.GetAll(pagingModel);
             if (result != null)
-                return Ok(result);
-            return BadRequest();
+            {
+                var paginationResponse = new PaginationResponse<IEnumerable<Product>>(result)
+                {
+                    Page = pagingModel.Page,
+                    PageSize = pagingModel.PageSize,
+                };
+                return Ok(paginationResponse);
+            }
+            else
+            {
+                return BadRequest("Category not found");
+            }
         }
         [HttpPost("products")]
         [Authorize(Roles = "Admin, Staff")]

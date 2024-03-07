@@ -11,7 +11,7 @@ namespace PetShop.Services.Intefaces
 {
     public interface ICategoryService
     {
-        public Task<List<Category>> GetAll();
+        public Task<List<Category>> GetAll(PagingRequest pageModel);
         public Task<Category> Create(CreateCategoryRequest request);
         public Task<Category> Update(UpdateCategoryRequest request);
         public Task<Category> Delete(Guid id);
