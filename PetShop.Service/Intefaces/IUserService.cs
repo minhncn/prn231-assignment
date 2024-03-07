@@ -1,4 +1,5 @@
 ﻿using PetShop.Business.Models;
+using PetShop.Services.Requests;
 using PetShop.Services.Requests.AuthRequest;
 using PetShop.Services.Requests.ProductRequest;
 using System;
@@ -11,7 +12,7 @@ namespace PetShop.Services.Intefaces
 {
     public interface IUserService
     {
-        public Task<List<User>> GetAll();
+        public Task<List<User>> GetAll(PagingRequest pageModel);
         public Task<User> Create(CreateUserRequest request);
         public Task<User> Update(UpdateUserRequest request);
         public Task<User> Delete(Guid id);

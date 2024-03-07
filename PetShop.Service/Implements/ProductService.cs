@@ -4,7 +4,9 @@ using PetShop.Repositories.Implements;
 using PetShop.Repositories.Interfaces;
 using PetShop.Services.Enums;
 using PetShop.Services.Intefaces;
+using PetShop.Services.Requests;
 using PetShop.Services.Requests.ProductRequest;
+using PetShop.Services.Utils;
 
 namespace PetShop.Services.Implements
 {
@@ -40,9 +42,12 @@ namespace PetShop.Services.Implements
             return product;
         }
 
-        public async Task<List<Product>> GetAll()
+        public async Task<List<Product>> GetAll(PagingRequest pageModel)
         {
-            return await _productRepository.Get().ToListAsync();
+            return await _productRepository
+                .Get()
+                .Paging(pageModel.Page, pageModel.PageSize)
+                .ToListAsync();
         }
 
         public async Task<Product> Update(UpdateProductRequest request)

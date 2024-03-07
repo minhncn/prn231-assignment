@@ -8,6 +8,7 @@ using PetShop.Services.Intefaces;
 using PetShop.Services.Requests;
 using PetShop.Services.Requests.AuthRequest;
 using PetShop.Services.Requests.CategoryRequest;
+using PetShop.Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,12 @@ namespace PetShop.Services.Implements
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<User>> GetAll(PagingRequest pageModel)
         {
-            return await _userRepository.Get().ToListAsync();
+            return await _userRepository
+                .Get()
+                .Paging(pageModel.Page, pageModel.PageSize)
+                .ToListAsync();
         }
 
         public async Task<User> Create(CreateUserRequest request)

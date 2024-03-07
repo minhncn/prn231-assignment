@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PetShop.Business.Models;
 using PetShop.Services;
 using PetShop.Services.Intefaces;
 using PetShop.Services.Requests;
 using PetShop.Services.Requests.CategoryRequest;
+using PetShop.Services.Responses;
 
 namespace PetShop.API.Controllers
 {
@@ -18,18 +20,20 @@ namespace PetShop.API.Controllers
 
         [HttpGet("categories")]
         [Authorize(Roles = "Admin, Staff")]
-        public async Task<IActionResult> Get()
-        {           
-            try
+        public async Task<IActionResult> Get([FromQuery] PagingRequest pagingModel)
+        {
+            var result = await _categoryService.GetAll(pagingModel);
+            if(result != null)
             {
-                var result = await _categoryService.GetAll();
-                if (result != null)
-                    return Ok(result);
-                return BadRequest();
-            }
-            catch (Exception ex)
+                var paginationResponse = new PaginationResponse<IEnumerable<Category>>(result)
+                {
+                    Page = pagingModel.Page,
+                    PageSize = pagingModel.PageSize,
+                };
+                return Ok(paginationResponse);
+            } else
             {
-                return BadRequest(ex.Message);
+                return BadRequest("Category not found");
             }
         }
         [HttpPost("categories")]
