@@ -4,6 +4,7 @@ using PetShop.API.Commons;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -57,6 +58,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:SecretKey"]))
         };
     });
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 
 var app = builder.Build();
 

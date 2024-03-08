@@ -21,16 +21,16 @@ namespace PetShop.Services.Implements
             _categoryRepository = categoryRepository;
         }
 
-        public Task<Product> Create(CreateProductRequest request)
+        public async Task<Product> Create(CreateProductRequest request)
         {
-            if(request.Name.Length > 255 || request.Status.Length > 20)
+            if (request.Name.Length > 255 || request.Status.Length > 20)
             {
                 Constants.ProductMessages.OutOfBound.ToString();
             }
-            var category = _categoryRepository.GetAsync(request.CategoryId);
+            var category = await _categoryRepository.GetAsync(request.CategoryId);
             if (category == null)
             {
-                Constants.ProductMessages.NotFoundCategoryId.ToString();
+                throw new Exception(Constants.ProductMessages.NotFoundCategoryId.ToString());
             }
             var product = new Product
             {
@@ -40,16 +40,16 @@ namespace PetShop.Services.Implements
                 CategoryId = request.CategoryId,
                 Status = Enums.ProductStatus.Available.ToString().TrimEnd()
             };
-            return _productRepository.CreateAsync(product);
+            return await _productRepository.CreateAsync(product);
         }
 
         public async Task<Product> Delete(Guid id)
         {
             var product = _productRepository.Get(id);
-            if(product == null)
+            if (product == null)
             {
                 throw new Exception("Product not found");
-            } 
+            }
             product.Status = Enums.ProductStatus.Unavailable.ToString().TrimEnd();
             return product;
         }
@@ -71,18 +71,20 @@ namespace PetShop.Services.Implements
                 Constants.ProductMessages.OutOfBound.ToString();
             }
             var product = _productRepository.Get(request.Id);
-            if(product == null)
+            if (product == null)
             {
                 throw new Exception("Product not found");
-            } else
+            }
+            else
             {
                 product.Name = request.Name;
                 product.Price = request.Price;
                 product.CategoryId = request.CategoryId;
-                if(product.Status == Enums.ProductStatus.Unavailable.ToString().TrimEnd())
+                if (product.Status == Enums.ProductStatus.Unavailable.ToString().TrimEnd())
                 {
                     product.Status = Enums.ProductStatus.Available.ToString().TrimEnd();
-                } else if(product.Status == Enums.ProductStatus.Available.ToString().TrimEnd())
+                }
+                else if (product.Status == Enums.ProductStatus.Available.ToString().TrimEnd())
                 {
                     product.Status = Enums.ProductStatus.Unavailable.ToString().TrimEnd();
                 }

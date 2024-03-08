@@ -92,7 +92,7 @@ namespace PetShop.Services.Implements
             {
                 throw new Exception("User not found");
             }
-            user.Status = Enums.CategoryStatus.Unavailable.ToString().TrimEnd();
+            user.Status = Enums.UserStatus.Unavailable.ToString().TrimEnd();
 
             return user;
         }
