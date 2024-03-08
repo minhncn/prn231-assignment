@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using PetShop.Business.Models;
 using PetShop.Repositories.Implements;
 using PetShop.Repositories.Interfaces;
@@ -35,6 +36,10 @@ namespace PetShop.Services.Implements
 
         public async Task<Category> Create(CreateCategoryRequest request)
         {
+            if(request.Name.Length > 255 || request.Status.Length > 20) 
+            {
+                Constants.CategoryMessages.OutOfBound.ToString();
+            }
             var category = new Category
             {
                 Id = Guid.NewGuid(),
@@ -48,6 +53,10 @@ namespace PetShop.Services.Implements
 
         public async Task<Category> Update(UpdateCategoryRequest request)
         {
+            if (request.Name.Length > 255 || request.Status.Length > 20)
+            {
+                Constants.CategoryMessages.OutOfBound.ToString();
+            }
             var category = _categoryRepository.Get(request.Id);
 
             if (category == null)

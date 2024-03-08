@@ -12,8 +12,8 @@ namespace PetShop.Services.Requests.ProductRequest
 
         public decimal Price { get; set; }
 
-        public Guid? CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
 
-        public bool? Status { get; set; }
+        public string Status { get; set; }
     }
 }

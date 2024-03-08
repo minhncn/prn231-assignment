@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using PetShop.Business.Models;
 using PetShop.Repositories.Implements;
 using PetShop.Repositories.Interfaces;
@@ -13,13 +14,24 @@ namespace PetShop.Services.Implements
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        public ProductService(IProductRepository productRepository)
+        private readonly ICategoryRepository _categoryRepository;
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public Task<Product> Create(CreateProductRequest request)
         {
+            if(request.Name.Length > 255 || request.Status.Length > 20)
+            {
+                Constants.ProductMessages.OutOfBound.ToString();
+            }
+            var category = _categoryRepository.GetAsync(request.CategoryId);
+            if (category == null)
+            {
+                Constants.ProductMessages.NotFoundCategoryId.ToString();
+            }
             var product = new Product
             {
                 Id = Guid.NewGuid(),
@@ -54,6 +66,10 @@ namespace PetShop.Services.Implements
 
         public async Task<Product> Update(UpdateProductRequest request)
         {
+            if (request.Name.Length > 255 || request.Status.Length > 20)
+            {
+                Constants.ProductMessages.OutOfBound.ToString();
+            }
             var product = _productRepository.Get(request.Id);
             if(product == null)
             {

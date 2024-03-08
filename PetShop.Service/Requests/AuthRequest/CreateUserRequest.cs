@@ -14,7 +14,7 @@ namespace PetShop.Services.Requests.AuthRequest
 
         public string Email { get; set; } = null!;
 
-        public string? Status { get; set; }
+        public string Status { get; set; } = null!;
 
         public string Role { get; set; } = null!;
     }
