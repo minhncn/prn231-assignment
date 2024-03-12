@@ -45,11 +45,11 @@ namespace PetShop.Repositories.Implements
             var loginResponse = new LoginResponse()
             {
                 AccessToken = token,
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                Status = user.Status,
-                Role = user.Role,
+                //Id = user.Id,
+                //Username = user.Username,
+                //Email = user.Email,
+                //Status = user.Status,
+                //Role = user.Role,
             };
 
             return loginResponse;

@@ -19,7 +19,7 @@ namespace PetShop.API.Controllers
         }
 
         [HttpGet("categories")]
-        [Authorize(Roles = "Admin, Staff")]
+        //[Authorize(Roles = "Admin, Staff")]
         public async Task<IActionResult> Get([FromQuery]CategoryFilterRequest filter,[FromQuery] PagingRequest pagingModel)
         {
             var result = await _categoryService.GetAll(filter, pagingModel);

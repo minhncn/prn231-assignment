@@ -46,7 +46,7 @@ namespace PetShop.Client.Pages
                     else
                     {
                         Token = apiResponse;
-                        return RedirectToPage("/Index", new { Token = apiResponse });
+                        return RedirectToPage("/CategoryPages/Index", new { Token = apiResponse });
                     }
                 }
             }
