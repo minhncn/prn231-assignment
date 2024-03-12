@@ -24,7 +24,7 @@ namespace PetShop.Services.Utils
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Sub,user.Username),
                     new Claim(ClaimTypes.Role,user.Role),
-                };
+                };           
             var expires = DateTime.Now.AddDays(1);
             var token = new JwtSecurityToken(issuer, null, claims, notBefore: DateTime.Now, expires, credentials);
             return jwtHandler.WriteToken(token);
