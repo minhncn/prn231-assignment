@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PetShop.Business.Models;
 using PetShop.Client.Helpers;
+using PetShop.Services.Responses;
 
 namespace PetShop.Client.Pages.CategoryPages
 {
@@ -15,6 +16,7 @@ namespace PetShop.Client.Pages.CategoryPages
     {
         public IndexModel() { }
         public string? Token { get; set; }
+        public PaginationResponse<IList<Category>> Paging { get; set; }
         public IList<Category> Categories { get; set; } = default!;
         public async Task OnGetAsync(string token)
         {
@@ -22,7 +24,12 @@ namespace PetShop.Client.Pages.CategoryPages
             Token = token;
             string baseUrl = "http://localhost:5268/api/v1/categories";
             var responseString = await apiHelpers.GetAPI(baseUrl, token);
-            Category category = JsonConvert.DeserializeObject<Category>(responseString);
+            Paging = JsonConvert.DeserializeObject <PaginationResponse<IList<Category>>>(responseString);
+            if(Paging == null)
+            {
+                throw new Exception();
+            }
+            Categories = Paging.responseData.ToList();
             //Categories = new List<Category> { category };
         }
     }
